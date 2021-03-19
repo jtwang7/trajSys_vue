@@ -56,6 +56,7 @@ export default {
   methods: {
     // 选择用户ID
     selectUser(userid) {
+      const vm = this;
       this.$store.dispatch("reqTrajNum", userid);
       // 请求第一天轨迹
       this.requestData(this.$refs.trajBox.tid, userid);
@@ -66,6 +67,7 @@ export default {
       this.$store.commit("clearUser");
       this.$refs.trajBox.hiddenTraj();
       this.$refs.glbTrajBox.hiddenGLBTraj();
+      this.$store.commit("clearHeatmapData");
     },
     // 触发单条轨迹请求
     requestData(tid, userid) {
@@ -77,6 +79,10 @@ export default {
     // 触发全局轨迹请求
     requestAllData(userid) {
       this.$store.dispatch("reqGlobalTraj", userid);
+    },
+    // 请求按月/周划分的数据(用于热力图展示)
+    reqDataforHeatmap(userid, vm) {
+      this.$store.dispatch("reqDataforHeatmap", { userid, vm });
     },
   },
   watch: {

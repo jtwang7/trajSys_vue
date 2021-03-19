@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '@/router'
-import { getRecordLens, getTraj, globalTraj } from '@/network/request'
+import { getRecordLens, getTraj, globalTraj, reqMonthDayData } from '@/network/request'
 import { transformAMap } from '@/components/common/map/gcoord';
 import { colorBar } from '@/components/common/colorbar'
+import axios from 'axios';
 
 Vue.use(Vuex)
 
@@ -27,11 +28,14 @@ const state = {
   },
   // 是否弹出警告框
   modalBox: false,
+  // heatmap弹窗
+  heatmapPopups: false,
 
   // 存放已展示OD
   existOD: [],
   curUserid: '',
   globalTrajList: [],
+
   user: {
     '399313': {
       id: 399313,
@@ -173,6 +177,14 @@ export default new Vuex.Store({
         };
       }));
     },
+    // 显示热力图相关弹窗
+    showHeatmapPopups(state) {
+      state.heatmapPopups = true
+    },
+    // 隐藏热力图相关弹窗
+    hidHeatmapPopups(state) {
+      state.heatmapPopups = false
+    },
     // 不正确操作出发警告框
     modalClick(state) {
       state.modalBox = false;
@@ -215,7 +227,7 @@ export default new Vuex.Store({
       }).catch(err => {
         console.log(err);
       })
-    }
+    },
   },
   modules: {
   }

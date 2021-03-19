@@ -16,7 +16,7 @@ export default {
         amap: {
           lang: "en",
           viewMode: "2D",
-          center: [114.270896,22.730804],
+          center: [114.270896, 22.730804],
           zoom: 14,
           resizeEnable: true,
           // https://lbs.amap.com/dev/mapstyle/index
@@ -25,6 +25,18 @@ export default {
           echartsLayerZIndex: 2019,
           echartsLayerInteractive: true,
           largeMode: false,
+        },
+        visualMap: {
+          show: false,
+          type: 'continuous',
+          top: "top",
+          min: 0,
+          max: 5,
+          seriesIndex: 4, //关联series[4]的数据
+          calculable: true,
+          inRange: {
+            color: ["blue", "blue", "green", "yellow", "red"],
+          },
         },
         series: [
           // 初始化一个样式，后续可以进行动态修改
@@ -92,6 +104,15 @@ export default {
               symbolSize: 3,
             },
             zlevel: 1,
+          },
+          {
+            // 4.热力图样式
+            type: "heatmap",
+            coordinateSystem: "amap",
+            data: [], // heatmap data: [[x,y,index],...]
+            pointSize: 5,
+            blurSize: 8,
+            zlevel: 3,
           },
         ],
       },

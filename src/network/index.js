@@ -4,7 +4,7 @@ export const baseRequest = (config) => {
     const instance = axios.create({
         baseURL: 'http://127.0.0.1:7001',
         method: 'get',
-        timeout: 5000,
+        timeout: 10000,
         // proxy: {
         //     protocol: 'http',
         //     host: '127.0.0.1',
